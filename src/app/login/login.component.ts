@@ -1,10 +1,36 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
+  constructor(private http: HttpClient) {}
+
+  onSubmit(): void {
+    // Perform login authentication logic here
+    // Example: You can send a POST request to your backend to authenticate the user
+    const credentials = {
+      username: this.username,
+      password: this.password
+    };
+
+    // Example: Send login request to backend
+    this.http.post<any>('http://localhost:3000/api/login', credentials).subscribe(
+      (response) => {
+        console.log(response);
+        alert('User logged in successfully!');
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.errorMessage = 'Invalid username or password. Please try again.';
+      }
+    );
+  }
 }

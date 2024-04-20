@@ -62,6 +62,46 @@ app.post('/api/signup', (req, res) => {
     });
 });
 
+// Define a route for login
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Query to retrieve user from the database based on username
+    const getUserQuery = 'SELECT * FROM user WHERE username = ?';
+
+    // Execute the query to fetch user data
+    connection.query(getUserQuery, [username], (err, results) => {
+        if (err) {
+            console.error('Error executing query: ', err);
+            res.status(500).json({ error: 'Error executing query' });
+            return;
+        }
+
+        // Check if user with the provided username exists
+        if (results.length === 0) {
+            res.status(401).json({ error: 'Invalid username or password' });
+            return;
+        }
+
+        // Verify the password using bcrypt
+        bcrypt.compare(password, results[0].hashedPassword, (err, passwordMatch) => {
+            if (err) {
+                console.error('Error comparing passwords: ', err);
+                res.status(500).json({ error: 'Error comparing passwords' });
+                return;
+            }
+
+            // If passwords match, authentication successful
+            if (passwordMatch) {
+                res.json({ message: 'Authentication successful' });
+            } else {
+                // If passwords don't match, authentication failed
+                res.status(401).json({ error: 'Invalid username or password' });
+            }
+        });
+    });
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
