@@ -11,11 +11,11 @@
   <!-- Navigation Component -->
   <app-navbar></app-navbar>
 
-  <!-- signup.component.html -->
-
   <div class="container d-flex align-items-center justify-content-center" style="min-height: calc(94.85vh - 100px);">
     <div id="signup-container">
       <h2>Sign Up</h2>
+      <!-- Display error message if exists -->
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
       <form (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Username</label>
@@ -37,8 +37,6 @@
       </form>
     </div>
   </div>
-  
-  
   
   <!-- Footer Component -->
   <app-footer></app-footer>
