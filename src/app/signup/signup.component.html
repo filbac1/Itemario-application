@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Itemario</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="signup.component.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+  <!-- Navigation Component -->
+  <app-navbar></app-navbar>
+
+  <!-- signup.component.html -->
+
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: calc(94.85vh - 100px);">
+    <div id="signup-container">
+      <h2>Sign Up</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" [(ngModel)]="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" [(ngModel)]="password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+  
+  
+  <!-- Footer Component -->
+  <app-footer></app-footer>
+
+  <!-- Bootstrap and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

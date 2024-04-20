@@ -34,7 +34,13 @@ body {
     font-size: 18px;
     color: #666;
   }
-  
+
+  /* Add this CSS to center the buttons */
+  .button-container {
+    text-align: center;
+    margin-top: 20px; /* Adjust as needed */
+  }
+
   /* Footer */
   footer {
     background-color: #343a40;
