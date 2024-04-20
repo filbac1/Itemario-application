@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,9 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { StartComponent } from './start/start.component';
+
+// Import AuthService
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,11 @@ import { StartComponent } from './start/start.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule // Add FormsModule to imports array
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService // Add AuthService to providers array
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

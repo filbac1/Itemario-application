@@ -93,7 +93,15 @@ app.post('/api/login', (req, res) => {
 
             // If passwords match, authentication successful
             if (passwordMatch) {
-                res.json({ message: 'Authentication successful' });
+                // Create user object without password
+                const user = {
+                id: results[0].id,
+                username: results[0].username,
+                email: results[0].email,
+                active: results[0].active,
+                role: results[0].role
+                };
+                res.json({ message: 'Authentication successful', user: user });
             } else {
                 // If passwords don't match, authentication failed
                 res.status(401).json({ error: 'Invalid username or password' });
