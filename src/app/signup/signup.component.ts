@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Import HttpClient
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -7,23 +7,33 @@ import { HttpClient } from '@angular/common/http'; // Import HttpClient
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  username: string = ''; // Define username variable
-  password: string = ''; // Define password variable
+  username: string = '';
+  email: string = ''; // Define email variable
+  password: string = '';
+  repeatPassword: string = ''; // Define repeatPassword variable
 
-  constructor(private http: HttpClient) {} // Inject HttpClient
+  constructor(private http: HttpClient) {}
 
   onSubmit(): void {
-    const newUser = { username: this.username, password: this.password }; // Create user object
+    if (this.password !== this.repeatPassword) {
+      alert('Passwords do not match. Please try again.');
+      return;
+    }
 
-    // Send POST request to server endpoint
+    const newUser = {
+      username: this.username,
+      email: this.email, // Add email to user object
+      password: this.password
+    };
+
     this.http.post<any>('http://localhost:3000/api/signup', newUser).subscribe(
       (response) => {
-        console.log(response); // Log response from server
-        alert('User signed up successfully!'); // Display success message
+        console.log(response);
+        alert('User signed up successfully!');
       },
       (error) => {
-        console.error('Error:', error); // Log error
-        alert('An error occurred. Please try again.'); // Display error message
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
       }
     );
   }

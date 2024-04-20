@@ -39,7 +39,7 @@ app.get('/api/users', (req, res) => {
 });
 
 app.post('/api/signup', (req, res) => {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body; // Extract username, email, and password from request body
 
     // Hash the password
     bcrypt.hash(password, 10, (err, hashedPassword) => {
@@ -49,8 +49,8 @@ app.post('/api/signup', (req, res) => {
             return;
         }
 
-        const insertUserQuery = 'INSERT INTO user (username, password, hashedPassword, active, role) VALUES (?, ?, ?, 1, "user")';
-        connection.query(insertUserQuery, [username, password, hashedPassword], (err, result) => {
+        const insertUserQuery = 'INSERT INTO user (username, email, password, hashedPassword, active, role) VALUES (?, ?, ?, ?, 1, "user")'; // Modify query to include email
+        connection.query(insertUserQuery, [username, email, password, hashedPassword], (err, result) => {
             if (err) {
                 console.error('Error inserting user:', err);
                 res.status(500).json({ error: 'Error inserting user' });
@@ -61,6 +61,7 @@ app.post('/api/signup', (req, res) => {
         });
     });
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
