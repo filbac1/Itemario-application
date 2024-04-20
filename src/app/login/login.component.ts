@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router'; // Import the Router
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit(): void {
     // Perform login authentication logic here
@@ -26,6 +27,7 @@ export class LoginComponent {
       (response) => {
         console.log(response);
         alert('User logged in successfully!');
+        this.router.navigate(['/start']);
       },
       (error) => {
         console.error('Error:', error);
