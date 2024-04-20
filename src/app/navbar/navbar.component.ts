@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth.service'; // Import AuthService
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +10,15 @@ import { AuthService } from '../auth.service';
 export class NavbarComponent implements OnInit {
   currentUser: any;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {} // Inject AuthService and Router
 
   ngOnInit(): void {
-    // Initialize the component with the current user information
     this.currentUser = this.authService.getCurrentUser();
+  }
+
+  // Add a logout method
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']); // Redirect to login page after logout
   }
 }

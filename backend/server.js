@@ -40,27 +40,33 @@ app.get('/api/users', (req, res) => {
 
 app.post('/api/signup', (req, res) => {
     const { username, email, password } = req.body; // Extract username, email, and password from request body
-
     // Hash the password
     bcrypt.hash(password, 10, (err, hashedPassword) => {
+      if (err) {
+        console.error('Error hashing password:', err);
+        res.status(500).json({ error: 'Error hashing password' });
+        return;
+      }
+      const insertUserQuery = 'INSERT INTO user (username, email, password, hashedPassword, active, role) VALUES (?, ?, ?, ?, 1, "user")'; // Modify query to include email
+      connection.query(insertUserQuery, [username, email, password, hashedPassword], (err, result) => {
         if (err) {
-            console.error('Error hashing password:', err);
-            res.status(500).json({ error: 'Error hashing password' });
-            return;
+          console.error('Error inserting user:', err);
+          res.status(500).json({ error: 'Error inserting user' });
+          return;
         }
-
-        const insertUserQuery = 'INSERT INTO user (username, email, password, hashedPassword, active, role) VALUES (?, ?, ?, ?, 1, "user")'; // Modify query to include email
-        connection.query(insertUserQuery, [username, email, password, hashedPassword], (err, result) => {
-            if (err) {
-                console.error('Error inserting user:', err);
-                res.status(500).json({ error: 'Error inserting user' });
-                return;
-            }
-            console.log('User inserted successfully');
-            res.json({ message: 'User inserted successfully' });
-        });
+        console.log('User inserted successfully');
+        // Create user object without password
+        const user = {
+          id: result.insertId, // Get the id of the inserted user
+          username: username,
+          email: email,
+          active: 1,
+          role: "user"
+        };
+        res.json({ message: 'User inserted successfully', user: user });
+      });
     });
-});
+  });  
 
 // Define a route for login
 app.post('/api/login', (req, res) => {

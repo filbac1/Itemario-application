@@ -12,10 +12,11 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/user">Users</a>
         </li>
+        <!-- Add a logout button -->
+        <li class="nav-item" *ngIf="currentUser">
+          <button class="btn btn-link nav-link" (click)="logout()">Logout</button>
+        </li>
       </ul>
-      <span *ngIf="currentUser" class="navbar-text">
-        Welcome, {{ currentUser.username }} <!-- Display the username -->
-      </span>
     </div>
   </div>
 </nav>

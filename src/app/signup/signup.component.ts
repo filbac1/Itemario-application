@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Import the Router
+import { AuthService } from '../auth.service'; // make sure the path is correct
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,7 @@ export class SignupComponent {
   repeatPassword: string = '';
   errorMessage: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   onSubmit(): void {
     // Validate username length
@@ -50,15 +51,19 @@ export class SignupComponent {
     };
 
     this.http.post<any>('http://localhost:3000/api/signup', newUser).subscribe(
-      (response) => {
-        console.log(response);
-        alert('User signed up successfully!');  
-        this.router.navigate(['/start']);
-      },
-      (error) => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+    (response) => {
+      console.log(response);
+      if (response.user) {
+        // Store the user information after successful signup
+        this.authService.login(response.user);
       }
-    );
+      alert('User signed up successfully!');
+      this.router.navigate(['/start']);
+    },
+    (error) => {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  );
   }
 }
