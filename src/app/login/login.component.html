@@ -13,7 +13,7 @@
 
   <div class="container d-flex align-items-center justify-content-center" style="min-height: calc(94.85vh - 100px);">
     <div id="login-container">
-      <h2>Login</h2>
+      <h2 style="text-align: center;">Login</h2>
       <!-- Display error message if exists -->
       <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
       <form (ngSubmit)="onSubmit()">
@@ -27,6 +27,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Login</button>
       </form>
+      <p style="text-align: center; padding-top: 20px;">Not registered? Register <a href="/signup">here</a></p>
     </div>
   </div>
   
