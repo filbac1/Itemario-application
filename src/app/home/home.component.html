@@ -12,18 +12,20 @@
   <app-navbar></app-navbar>
 
   <!-- Main Content -->
-  <main id="main-content" class="container d-flex align-items-center justify-content-center" style="min-height: calc(94.85vh - 100px);"> <!-- Adjust min-height based on your navbar height -->
+  <main id="main-content" class="container d-flex align-items-center justify-content-center" style="min-height: calc(94.85vh - 100px);">
     <section id="itemario">
       <div class="text-center">
         <h2>Welcome to Our Price Evaluation Platform</h2>
         <p>Our platform is dedicated to providing you with accurate pricing information for various items, based on evidence and real-world data. Whether you're buying or selling, knowing the true value of an item can make all the difference. Our team of experts meticulously researches market trends, historical data, and other relevant factors to ensure that you get the most reliable price estimates possible. Say goodbye to guesswork and uncertainty - trust our platform to help you make informed decisions!</p>
       </div>
-      <div class="button-container">
-        <a href="/signup" class="btn btn-primary mr-3">Sign Up</a>
+      <!-- Conditionally show/hide buttons based on currentUser -->
+      <div class="button-container" *ngIf="!currentUser">
+        <a href="/signup" class="btn btn-primary mr-3">Register</a>
         <a href="/login" class="btn btn-secondary">Login</a>
       </div>
     </section>
   </main>
+  
 
   <!-- Footer Component -->
   <app-footer></app-footer>

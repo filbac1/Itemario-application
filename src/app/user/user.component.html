@@ -18,7 +18,6 @@
         <tr>
           <th>ID</th>
           <th>Username</th>
-          <th>Password</th>
           <th>Hashed Password</th>
           <th>Active</th>
           <th>Role</th>
@@ -28,7 +27,6 @@
         <tr *ngFor="let user of users">
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
-          <td>{{ user.password }}</td>
           <td>{{ user.hashedPassword }}</td>
           <td>{{ user.active }}</td>
           <td>{{ user.role }}</td>

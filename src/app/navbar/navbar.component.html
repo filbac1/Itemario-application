@@ -9,8 +9,20 @@
         <li class="nav-item">
           <a class="nav-link" href="/home">Home</a>
         </li>
-        <li class="nav-item">
+        <!-- Add the "Item" tab for logged-in users -->
+        <li class="nav-item" *ngIf="currentUser">
+          <a class="nav-link" href="/start">Item</a>
+        </li>
+        <!-- Conditionally show the "Users" tab based on currentUser's role -->
+        <li class="nav-item" *ngIf="currentUser && currentUser.role === 'admin'">
           <a class="nav-link" routerLink="/user">Users</a>
+        </li>
+        <!-- Conditionally show the "Login" and "Signup" tabs for not logged-in users -->
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="nav-link" href="/signup">Register</a>
         </li>
         <!-- Add a logout button -->
         <li class="nav-item" *ngIf="currentUser">

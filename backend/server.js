@@ -3,6 +3,7 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors'); // Import CORS middleware
 const bcrypt = require('bcrypt');
+const scrapeNjuskalo = require('./scrapingNjuskalo'); // Corrected import for scrapeNjuskalo module
 
 // Create a connection to the database
 const connection = mysql.createConnection({
@@ -100,6 +101,7 @@ app.post('/api/login', (req, res) => {
         });
     });
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
