@@ -3,8 +3,6 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors'); // Import CORS middleware
 const bcrypt = require('bcrypt');
-const scrapeNjuskalo = require('./scrapingNjuskalo'); // Corrected import for scrapeNjuskalo module
-
 // Create a connection to the database
 const connection = mysql.createConnection({
     host: 'localhost',  // Change this to your MySQL host
