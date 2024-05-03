@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Table</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="product.component.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+  <!-- Navigation Component -->
+  <app-navbar></app-navbar>
+
+  <!-- Table -->
+  <div class="container" id="product-table"> <!-- Change ID to product-table -->
+    <table class="table">
+      <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Store</th>
+            <th>Price</th>
+            <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.store }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Footer Component -->
+  <app-footer class="product-footer"></app-footer> <!-- Change class to product-footer -->
+
+  <!-- Bootstrap and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

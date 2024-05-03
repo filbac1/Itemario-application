@@ -100,6 +100,77 @@ app.post('/api/login', (req, res) => {
     });
 });
 
+// Route to fetch all products
+app.get('/api/products', (req, res) => {
+    // Query to retrieve all products from the product table
+    const getProductsQuery = 'SELECT * FROM product';
+
+    // Execute the query
+    connection.query(getProductsQuery, (err, results) => {
+        if (err) {
+            console.error('Error executing query: ', err);
+            res.status(500).json({ error: 'Error executing query' });
+            return;
+        }
+        // Send the products data as JSON response
+        res.json(results);
+    });
+});
+
+// Route to add a new product
+app.post('/api/products', (req, res) => {
+    const { name, store, price, date } = req.body;
+    const insertProductQuery = 'INSERT INTO product (name, store, price, date) VALUES (?, ?, ?, ?)';
+    connection.query(insertProductQuery, [name, store, price, date], (err, result) => {
+        if (err) {
+            console.error('Error inserting product:', err);
+            res.status(500).json({ error: 'Error inserting product' });
+            return;
+        }
+        console.log('Product inserted successfully');
+        const product = {
+            id: result.insertId,
+            name: name,
+            store: store,
+            price: price,
+            date: date
+        };
+        res.json({ message: 'Product inserted successfully', product: product });
+    });
+});
+
+// Route to update a product
+app.put('/api/products/:id', (req, res) => {
+    const productId = req.params.id;
+    const { name, store, price, date } = req.body;
+    const updateProductQuery = 'UPDATE product SET name = ?, store = ?, price = ?, date = ? WHERE id = ?';
+    connection.query(updateProductQuery, [name, store, price, date, productId], (err, result) => {
+        if (err) {
+            console.error('Error updating product:', err);
+            res.status(500).json({ error: 'Error updating product' });
+            return;
+        }
+        console.log('Product updated successfully');
+        res.json({ message: 'Product updated successfully' });
+    });
+});
+
+// Route to delete a product
+app.delete('/api/products/:id', (req, res) => {
+    const productId = req.params.id;
+    const deleteProductQuery = 'DELETE FROM product WHERE id = ?';
+    connection.query(deleteProductQuery, [productId], (err, result) => {
+        if (err) {
+            console.error('Error deleting product:', err);
+            res.status(500).json({ error: 'Error deleting product' });
+            return;
+        }
+        console.log('Product deleted successfully');
+        res.json({ message: 'Product deleted successfully' });
+    });
+});
+
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
