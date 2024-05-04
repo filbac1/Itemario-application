@@ -16,6 +16,7 @@ import { StartComponent } from './start/start.component';
 // Import AuthService
 import { AuthService } from './auth.service';
 import { ProductComponent } from './product/product.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProductComponent } from './product/product.component';
     SignupComponent,
     StartComponent,
     ProductComponent,
+    AnalysisComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -81,7 +82,7 @@ export class ProductComponent implements OnInit {
     "Lidl"
   ];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((data: any[]) => {
@@ -92,18 +93,25 @@ export class ProductComponent implements OnInit {
 
   applyFilters() {
     this.filteredProducts = this.products.filter(product => {
-      const productDate = new Date(product.date);
-      const startDate = this.startDate ? new Date(this.startDate) : null;
-      const endDate = this.endDate ? new Date(this.endDate) : null;
-  
+      const productPrice = parseFloat(product.price);
+      let priceMin = 0, priceMax = Infinity;
+      if (this.minPrice && this.maxPrice) {
+        priceMin = this.minPrice;
+        priceMax = this.maxPrice;
+      }
       return (
         (product.name.toLowerCase().includes(this.nameFilter.toLowerCase()) || this.nameFilter === '') &&
         (product.store.toLowerCase().includes(this.storeFilter.toLowerCase()) || this.storeFilter === '') &&
-        (product.price >= this.minPrice && product.price <= this.maxPrice) &&
-        (!startDate || productDate >= startDate) &&
-        (!endDate || productDate <= endDate)
+        (productPrice >= priceMin && productPrice <= priceMax) &&
+        (!this.startDate || new Date(product.date) >= new Date(this.startDate)) &&
+        (!this.endDate || new Date(product.date) <= new Date(this.endDate))
       );
     });
+  }
+
+  analyzeProducts() {
+    // Pass the filtered products data to the analysis component
+    this.router.navigate(['/analysis'], { state: { products: this.filteredProducts } });
   }
   
 }
