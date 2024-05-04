@@ -5,40 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Table</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="product.component.css"> <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="product.component.css">
 </head>
 <body>
-  <!-- Navigation Component -->
   <app-navbar></app-navbar>
 
-  <!-- Table -->
-  <div class="container" id="product-table"> <!-- Change ID to product-table -->
+  <div class="container" id="filters-container">
+    <div class="row">
+      <div class="col-md-4 filter-item">
+        <label for="nameFilter">Filter by Name:</label>
+        <select id="nameFilter" [(ngModel)]="nameFilter" (change)="applyFilters()">
+          <option value="">All Names</option>
+          <option *ngFor="let productName of productNames" [value]="productName">{{ productName }}</option>
+        </select>
+      </div>
+      <div class="col-md-4 filter-item">
+        <label for="storeFilter">Filter by Store:</label>
+        <select id="storeFilter" [(ngModel)]="storeFilter" (change)="applyFilters()">
+          <option value="">All Stores</option>
+          <option *ngFor="let store of stores" [value]="store">{{ store }}</option>
+        </select>
+      </div>
+      <div class="col-md-2 filter-item">
+        <label for="minPrice">Min Price:</label>
+        <input type="number" id="minPrice" [(ngModel)]="minPrice" (input)="applyFilters()">
+      </div>
+      <div class="col-md-2 filter-item">
+        <label for="maxPrice">Max Price:</label>
+        <input type="number" id="maxPrice" [(ngModel)]="maxPrice" (input)="applyFilters()">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-6 filter-item">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" [(ngModel)]="startDate" (input)="applyFilters()">
+      </div>
+      <div class="col-md-6 filter-item">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" [(ngModel)]="endDate" (input)="applyFilters()">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="product-table">
     <table class="table">
       <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Store</th>
-            <th>Price</th>
-            <th>Date</th>
+          <th>Name</th>
+          <th>Store</th>
+          <th>Price</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.id }}</td>
+        <tr *ngFor="let product of filteredProducts">
           <td>{{ product.name }}</td>
           <td>{{ product.store }}</td>
           <td>{{ product.price }}</td>
-          <td>{{ product.date }}</td>
+          <td>{{ product.date | date: 'dd.MM.yyyy' }}</td>
         </tr>
       </tbody>
     </table>
   </div>
   
-  <!-- Footer Component -->
-  <app-footer class="product-footer"></app-footer> <!-- Change class to product-footer -->
+  <app-footer class="product-footer"></app-footer>
 
-  <!-- Bootstrap and jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
