@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class ProductComponent implements OnInit {
   products: any[] = [];
   filteredProducts: any[] = [];
+  selectedNames: string[] = []; // Array to hold selected product names
   nameFilter: string = '';
   storeFilter: string = '';
   minPrice: number = 0.99;
@@ -100,7 +101,7 @@ export class ProductComponent implements OnInit {
         priceMax = this.maxPrice;
       }
       return (
-        (product.name.toLowerCase().includes(this.nameFilter.toLowerCase()) || this.nameFilter === '') &&
+        (this.selectedNames.length === 0 || this.selectedNames.includes(product.name)) &&
         (product.store.toLowerCase().includes(this.storeFilter.toLowerCase()) || this.storeFilter === '') &&
         (productPrice >= priceMin && productPrice <= priceMax) &&
         (!this.startDate || new Date(product.date) >= new Date(this.startDate)) &&
