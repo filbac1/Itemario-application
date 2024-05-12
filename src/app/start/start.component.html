@@ -6,6 +6,11 @@
   <title>Welcome to Itemario</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="start.component.css"> <!-- Link to external CSS file -->
+  <style>
+    .btn-group .btn {
+      margin-right: 10px; /* Add margin between buttons */
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation Component -->
@@ -16,12 +21,13 @@
       <h2>Welcome to Itemario</h2>
       <p>This is the start page of our application.</p>
       <p>Feel free to explore!</p>
-      <a href="/product" class="btn btn-primary">View Products</a>
+      <div class="btn-group" role="group" aria-label="Buttons">
+        <a href="/product" class="btn btn-primary btn-sm">View Products</a> <!-- Added btn-sm class for smaller size -->
+        <a href="/shopping" class="btn btn-success btn-sm">Calculate Cheapest Purchase</a> <!-- Added btn-sm class for smaller size -->
+      </div>
     </div>
   </div>
-  
-  
-  
+
   <!-- Footer Component -->
   <app-footer></app-footer>
 

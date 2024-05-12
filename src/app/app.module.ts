@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { ProductComponent } from './product/product.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { MultianalysisComponent } from './multianalysis/multianalysis.component';
+import { ShoppingComponent } from './shopping/shopping.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MultianalysisComponent } from './multianalysis/multianalysis.component'
     ProductComponent,
     AnalysisComponent,
     MultianalysisComponent,
+    ShoppingComponent,
   ],
   imports: [
     BrowserModule,

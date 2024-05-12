@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Table</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="shopping.component.css">
+</head>
+<body>
+  <app-navbar></app-navbar>
+  
+  <div class="container">
+    <h2>Select Products and Find the Best Store</h2>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" id="date" [(ngModel)]="selectedDate">
+    </div>
+    <div>
+      <label for="products">Products:</label>
+      <select id="products" [(ngModel)]="selectedProducts" multiple>
+        <option *ngFor="let product of productNames" [value]="product">{{ product }}</option>
+      </select>
+    </div>
+    <button (click)="findBestStore()">Find Best Store</button>
+  
+    <div *ngIf="bestStore">
+      <h3>Best Store: {{ bestStore }}</h3>
+      <p>Total Price: {{ bestPrice }}€</p>
+    </div>
+  </div>  
+
+  <app-footer class="product-footer"></app-footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
