@@ -1,0 +1,42 @@
+/* multianalysis.component.css */
+
+#multianalysis {
+    background-color: #f2f2f2;
+    padding: 40px 0;
+    width: 100%;
+    height: 100%;
+}
+
+#multianalysis h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Set a fixed height for the canvas */
+.chart-canvas {
+    width: 100%; /* Ensure canvas takes full width */
+    height: 1000px; /* Set desired height */
+    margin: 0 auto; /* Center horizontally */
+    display: block; /* Ensure it's a block-level element */
+}
+
+.analysis-info {
+    margin-top: 40px;
+}
+
+.analysis-info div {
+    margin-bottom: 20px;
+}
+
+.analysis-info h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.analysis-info p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 0;
+}
