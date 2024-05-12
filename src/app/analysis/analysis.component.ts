@@ -20,6 +20,8 @@ interface Product {
 })
 export class AnalysisComponent implements OnInit {
   chart: any;
+  mostExpensiveProduct: Product = { name: '', price: 0, store: '', date: '' };
+  leastExpensiveProduct: Product = { name: '', price: 0, store: '', date: '' };
 
   ngOnInit() {
     let products: Product[] = history.state.products;
@@ -27,6 +29,9 @@ export class AnalysisComponent implements OnInit {
     let labels = products.map((product: Product) => dayjs.utc(product.date).toDate());
     let data = products.map((product: Product) => product.price);
 
+    // Find most and least expensive products
+    this.mostExpensiveProduct = products.reduce((max, product) => max.price > product.price ? max : product);
+    this.leastExpensiveProduct = products.reduce((min, product) => min.price < product.price ? min : product);
 
     this.chart = new Chart('canvas', {
       type: 'line',
@@ -35,7 +40,7 @@ export class AnalysisComponent implements OnInit {
         datasets: [
           {
             data: data,
-            borderColor: '#3cba9f',
+            borderColor: 'blue',
             fill: false
           }
         ]
@@ -57,7 +62,7 @@ export class AnalysisComponent implements OnInit {
             display: true,
             scaleLabel: {
               display: true,
-              labelString: 'Price'
+              labelString: 'Price (€)'
             }
           }]
         }
