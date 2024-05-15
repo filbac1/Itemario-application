@@ -11,23 +11,28 @@
   <app-navbar></app-navbar>
   
   <div class="container">
-    <h2>Select Products and Find the Best Store</h2>
-    <div>
-      <label for="date">Date:</label>
-      <input type="date" id="date" [(ngModel)]="selectedDate">
+    <div id="filters-container" class="text-center"> <!-- Applied text-center class here -->
+      <div class="filter-item">
+        <label for="date">Date:</label>
+        <input type="date" id="date" [(ngModel)]="selectedDate">
+      </div>
+      <div class="filter-item">
+        <label for="products">Products:</label>
+        <select id="products" [(ngModel)]="selectedProducts" multiple>
+          <option *ngFor="let product of productNames" [value]="product">{{ product }}</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" (click)="findBestStores()">Find Best Stores</button>
     </div>
-    <div>
-      <label for="products">Products:</label>
-      <select id="products" [(ngModel)]="selectedProducts" multiple>
-        <option *ngFor="let product of productNames" [value]="product">{{ product }}</option>
-      </select>
+    
+    
+    <div class="messages-container">
+      <div class="messages">
+        <div *ngFor="let message of generateBestStoresMessages()" [innerHTML]="message"></div>
+      </div>
     </div>
-    <button (click)="findBestStore()">Find Best Store</button>
-  
-    <div *ngIf="bestStore">
-      <h3>Best Store: {{ bestStore }}</h3>
-      <p>Total Price: {{ bestPrice }}€</p>
-    </div>
+    
+   
   </div>  
 
   <app-footer class="product-footer"></app-footer>

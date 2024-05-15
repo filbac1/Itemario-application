@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 export class ShoppingComponent {
   products: any[] = [];
   filteredProducts: any[] = [];
+  bestStores: { [productName: string]: { store: string, price: number } } = {};
+  total: number = 0;
+
 
   productNames: string[] = [
     "Apples (1 kg)",
@@ -91,7 +94,7 @@ export class ShoppingComponent {
     });
   }
 
-  findBestStore(): void {
+  findBestStores(): void {
     if (this.selectedProducts.length === 0 || !this.selectedDate) {
       alert('Please select a date and at least one product.');
       return;
@@ -104,28 +107,81 @@ export class ShoppingComponent {
     const filteredProducts = this.products.filter(product => this.selectedProducts.includes(product.name));
   
     // Initialize an object to store the best store for each selected product
-    const bestStores: { [productName: string]: { store: string, price: number } } = {};
+    this.bestStores = {};
   
     // Find the best store for each selected product for the selected date and subsequent dates
     let currentDate = new Date(selectedDate);
-    while (Object.keys(bestStores).length < this.selectedProducts.length && currentDate <= new Date()) {
+    while (Object.keys(this.bestStores).length < this.selectedProducts.length && currentDate <= new Date()) {
       const productsForDate = filteredProducts.filter(product => new Date(product.date) >= currentDate);
       productsForDate.forEach(product => {
-        if (!bestStores[product.name] || product.price < bestStores[product.name].price) {
-          bestStores[product.name] = { store: product.store, price: product.price };
+        if (!this.bestStores[product.name] || product.price < this.bestStores[product.name].price) {
+          this.bestStores[product.name] = { store: product.store, price: product.price };
         }
       });
       currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
     }
-  
-    // Display the best store for each selected product
-    if (Object.keys(bestStores).length === 0) {
-      alert('No best stores found for the selected date and subsequent dates.');
-    } else {
-      // Update best store and price for display
-      this.bestStore = Object.keys(bestStores).map(productName => bestStores[productName].store).join(', ');
-      this.bestPrice = Object.keys(bestStores).reduce((totalPrice, productName) => totalPrice + bestStores[productName].price, 0);
-    }
+    
   }
+  
+  // Assuming you have bestStores populated with the data
+  // Assuming you have bestStores populated with the data
+
+  generateBestStoresSummary(): string {
+    let summary = 'You can do your shopping in following stores on this date (' + this.selectedDate + '):\n\n';
+
+    // Iterate over bestStores object
+    Object.keys(this.bestStores).forEach(product => {
+      const store = this.bestStores[product].store;
+      const price = this.bestStores[product].price.toFixed(2);
+      
+      summary += `**${store}:** ${product} (${price}€)\n\n`;
+    });
+
+    summary += 'Happy shopping!';
+    
+    return summary;
+  }
+
+  generateBestStoresMessages(): string[] {
+    let messages: string[] = [];
+  
+    // Create a map to group products by store
+    let storeProductsMap: { [store: string]: string[] } = {};
+    let totalPrice: number = 0;
+  
+    // Iterate over bestStores object
+    Object.keys(this.bestStores).forEach(product => {
+      const store = this.bestStores[product].store;
+      const price = this.bestStores[product].price.toFixed(2);
+  
+      // Add the price to the total
+      totalPrice += parseFloat(price);
+  
+      // Check if the store already exists in the map, if not, initialize an empty array
+      if (!storeProductsMap[store]) {
+        storeProductsMap[store] = [];
+      }
+      
+      // Push the product and price to the respective store's array
+      storeProductsMap[store].push(`${product} (${price}€)`);
+    });
+  
+    // Iterate over the storeProductsMap to construct the messages
+    Object.keys(storeProductsMap).forEach(store => {
+      const products = storeProductsMap[store].join(', ');
+      messages.push(`<span class="store-name">${store}</span>: ${products}`);
+    });
+  
+    // Add the total price as the last row
+    messages.push(`Total Price: ${totalPrice.toFixed(2)}€`);
+  
+    return messages;
+  }
+  
+  
+  
+  
+
+
   
 }
