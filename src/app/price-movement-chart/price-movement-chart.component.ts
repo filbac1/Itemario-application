@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartDataSets } from 'chart.js';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import 'chartjs-adapter-dayjs';
-import { Router } from '@angular/router';
 
 dayjs.extend(utc);
 
@@ -21,23 +20,13 @@ interface Product {
 })
 export class PriceMovementChartComponent implements OnInit {
   chart: any;
-  products: Product[] = [];
-  selectedProduct: string = '';
-
-  constructor(private router: Router) {}
 
   ngOnInit() {
-    if (history.state && history.state.products && history.state.selectedProduct) {
-      this.products = history.state.products;
-      this.selectedProduct = history.state.selectedProduct;
-    } else {
-      console.error('No product data available');
-      this.router.navigate(['/']); // Navigate back to home or another suitable route if data is missing
-      return;
-    }
+    const products: Product[] = history.state.products;
+    const selectedProduct = history.state.selectedProduct;
 
     // Filter products by selected product name
-    const filteredProducts = this.products.filter(product => product.name === this.selectedProduct);
+    const filteredProducts = products.filter(product => product.name === selectedProduct);
 
     // Sort products by date
     filteredProducts.sort((a, b) => dayjs(a.date).isBefore(b.date) ? -1 : 1);
@@ -46,16 +35,21 @@ export class PriceMovementChartComponent implements OnInit {
     const stores = [...new Set(filteredProducts.map(product => product.store))];
 
     // Prepare data for each store
-    const datasets = stores.map(store => {
+    const datasets: ChartDataSets[] = stores.map(store => {
       const storeProducts = filteredProducts.filter(product => product.store === store);
       return {
         label: store,
         data: storeProducts.map(product => ({ x: dayjs.utc(product.date).toDate(), y: product.price })),
         borderColor: this.getRandomColor(),
-        fill: false
+        fill: false,
+        lineTension: 0, // Ensure straight lines
+        borderWidth: 2, // Increase the border width for sharper lines
+        borderCapStyle: 'butt' as CanvasLineCap, // Sharp line caps
+        borderJoinStyle: 'miter' as CanvasLineJoin // Sharp line joins
       };
     });
 
+    // Render the chart
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -63,6 +57,15 @@ export class PriceMovementChartComponent implements OnInit {
       },
       options: {
         responsive: true,
+        devicePixelRatio: 1, // Set device pixel ratio for sharp lines
+        elements: {
+          line: {
+            tension: 0 // Disable bezier curves for sharp lines
+          },
+          point: {
+            radius: 2 // Smaller points for sharper appearance
+          }
+        },
         scales: {
           xAxes: [{
             type: 'time',
@@ -72,6 +75,10 @@ export class PriceMovementChartComponent implements OnInit {
             scaleLabel: {
               display: true,
               labelString: 'Date'
+            },
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10 // Limit the number of x-axis ticks for better clarity
             }
           }],
           yAxes: [{
