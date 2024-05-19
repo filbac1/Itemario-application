@@ -119,5 +119,10 @@ export class ProductComponent implements OnInit {
     // Pass the filtered products data to the analysis component
     this.router.navigate(['/multianalysis'], { state: { products: this.filteredProducts } });
   }
+
+  analyzePriceMovement(productName: string) {
+    this.router.navigate(['/price-movement'], { state: { products: this.products, selectedProduct: productName } });
+  }
+  
   
 }

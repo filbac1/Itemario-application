@@ -19,6 +19,7 @@ import { ProductComponent } from './product/product.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { MultianalysisComponent } from './multianalysis/multianalysis.component';
 import { ShoppingComponent } from './shopping/shopping.component';
+import { PriceMovementChartComponent } from './price-movement-chart/price-movement-chart.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ShoppingComponent } from './shopping/shopping.component';
     AnalysisComponent,
     MultianalysisComponent,
     ShoppingComponent,
+    PriceMovementChartComponent,
   ],
   imports: [
     BrowserModule,
