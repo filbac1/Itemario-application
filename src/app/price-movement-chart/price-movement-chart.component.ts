@@ -25,16 +25,12 @@ export class PriceMovementChartComponent implements OnInit {
     const products: Product[] = history.state.products;
     const selectedProduct = history.state.selectedProduct;
 
-    // Filter products by selected product name
     const filteredProducts = products.filter(product => product.name === selectedProduct);
 
-    // Sort products by date
     filteredProducts.sort((a, b) => dayjs(a.date).isBefore(b.date) ? -1 : 1);
 
-    // Get unique stores
     const stores = [...new Set(filteredProducts.map(product => product.store))];
 
-    // Prepare data for each store
     const datasets: ChartDataSets[] = stores.map(store => {
       const storeProducts = filteredProducts.filter(product => product.store === store);
       return {
@@ -42,14 +38,13 @@ export class PriceMovementChartComponent implements OnInit {
         data: storeProducts.map(product => ({ x: dayjs.utc(product.date).toDate(), y: product.price })),
         borderColor: this.getRandomColor(),
         fill: false,
-        lineTension: 0, // Ensure straight lines
-        borderWidth: 2, // Increase the border width for sharper lines
-        borderCapStyle: 'butt' as CanvasLineCap, // Sharp line caps
-        borderJoinStyle: 'miter' as CanvasLineJoin // Sharp line joins
+        lineTension: 0, 
+        borderWidth: 2, 
+        borderCapStyle: 'butt' as CanvasLineCap, 
+        borderJoinStyle: 'miter' as CanvasLineJoin 
       };
     });
 
-    // Render the chart
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -57,13 +52,13 @@ export class PriceMovementChartComponent implements OnInit {
       },
       options: {
         responsive: true,
-        devicePixelRatio: 1, // Set device pixel ratio for sharp lines
+        devicePixelRatio: 1,
         elements: {
           line: {
-            tension: 0 // Disable bezier curves for sharp lines
+            tension: 0 
           },
           point: {
-            radius: 2 // Smaller points for sharper appearance
+            radius: 2 
           }
         },
         scales: {
@@ -78,7 +73,7 @@ export class PriceMovementChartComponent implements OnInit {
             },
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 10 // Limit the number of x-axis ticks for better clarity
+              maxTicksLimit: 10 
             }
           }],
           yAxes: [{

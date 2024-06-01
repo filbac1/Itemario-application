@@ -29,7 +29,6 @@ export class AnalysisComponent implements OnInit {
     let labels = products.map((product: Product) => dayjs.utc(product.date).toDate());
     let data = products.map((product: Product) => product.price);
 
-    // Find most and least expensive products
     this.mostExpensiveProduct = products.reduce((max, product) => max.price > product.price ? max : product);
     this.leastExpensiveProduct = products.reduce((min, product) => min.price < product.price ? min : product);
 

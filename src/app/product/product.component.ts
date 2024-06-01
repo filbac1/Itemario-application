@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ProductComponent implements OnInit {
   products: any[] = [];
   filteredProducts: any[] = [];
-  selectedNames: string[] = []; // Array to hold selected product names
+  selectedNames: string[] = [];
   nameFilter: string = '';
   storeFilter: string = '';
   minPrice: number = 0.99;
@@ -18,7 +18,6 @@ export class ProductComponent implements OnInit {
   startDate: Date | undefined;
   endDate: Date | undefined;
   
-  // Define product names and stores
   productNames: string[] = [
     "Apples (1 kg)",
     "Bananas (1 kg)",
@@ -111,12 +110,10 @@ export class ProductComponent implements OnInit {
   }
 
   analyzeProducts() {
-    // Pass the filtered products data to the analysis component
     this.router.navigate(['/analysis'], { state: { products: this.filteredProducts } });
   }
 
   analyzeMultipleProducts() {
-    // Pass the filtered products data to the analysis component
     this.router.navigate(['/multianalysis'], { state: { products: this.filteredProducts } });
   }
 

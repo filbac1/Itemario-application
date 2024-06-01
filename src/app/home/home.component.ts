@@ -12,7 +12,6 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    // Fetch the current user's information when the component initializes
     this.currentUser = this.authService.getCurrentUser();
     console.log("Current user:", this.currentUser);
   }

@@ -1,5 +1,3 @@
-/* multianalysis.component.css */
-
 #multianalysis {
     background-color: #f2f2f2;
     padding: 40px 0;
@@ -13,12 +11,11 @@
     margin-bottom: 20px;
 }
 
-/* Set a fixed height for the canvas */
 .chart-canvas {
-    width: 100%; /* Ensure canvas takes full width */
-    height: 1000px; /* Set desired height */
-    margin: 0 auto; /* Center horizontally */
-    display: block; /* Ensure it's a block-level element */
+    width: 100%; 
+    height: 1000px; 
+    margin: 0 auto; 
+    display: block; 
 }
 
 .analysis-info {

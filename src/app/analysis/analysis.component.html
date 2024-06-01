@@ -8,10 +8,8 @@
   <link rel="stylesheet" href="analysis.component.css">
 </head>
 <body>
-  <!-- Navigation Component -->
   <app-navbar></app-navbar>
 
-  <!-- Main Content -->
   <main id="main-content" class="container d-flex align-items-center justify-content-center" style="min-height: calc(94.85vh - 100px);">
     <section id="analysis">
       <div class="text-center">
@@ -19,8 +17,6 @@
         <canvas id="canvas" class="chart-canvas"></canvas>
       </div>
       <div class="analysis-info">
-        <!-- analysis.component.html -->
-
         <div>
           <h3>Most Expensive Product:</h3>
           <p>Product: {{ mostExpensiveProduct.name }} - {{ mostExpensiveProduct.price }}€ on {{ mostExpensiveProduct.date }}</p>
@@ -35,10 +31,8 @@
     </section>
   </main>
   
-  <!-- Footer Component -->
   <app-footer></app-footer>
 
-  <!-- Bootstrap and jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

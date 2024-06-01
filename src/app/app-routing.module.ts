@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'analysis', component: AnalysisComponent },
   { path: 'multianalysis', component: MultianalysisComponent },
   { path: 'shopping', component: ShoppingComponent },
-  { path: 'price-movement', component: PriceMovementChartComponent }, // Updated path
+  { path: 'price-movement', component: PriceMovementChartComponent }, 
 ];
 
 @NgModule({

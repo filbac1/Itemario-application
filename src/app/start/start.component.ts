@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { HttpClient } from '@angular/common/http'; // Import HttpClient
+import { HttpClient } from '@angular/common/http'; 
 
 @Component({
   selector: 'app-start',
@@ -10,12 +10,11 @@ import { HttpClient } from '@angular/common/http'; // Import HttpClient
 export class StartComponent implements OnInit {
   currentUser: any;
 
-  constructor(private authService: AuthService, private http: HttpClient) { } // Inject HttpClient and AuthService
+  constructor(private authService: AuthService, private http: HttpClient) { } 
 
   ngOnInit(): void {
-    // Fetch the current user's information when the component initializes
     this.currentUser = this.authService.getCurrentUser();
-    console.log("Current user:", this.currentUser); // Log the current user
+    console.log("Current user:", this.currentUser); 
   }
 
 }

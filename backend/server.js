@@ -1,38 +1,30 @@
-// Import required modules
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors'); // Import CORS middleware
+const cors = require('cors'); 
 const bcrypt = require('bcrypt');
-// Create a connection to the database
+
 const connection = mysql.createConnection({
-    host: 'localhost',  // Change this to your MySQL host
-    user: 'root',       // MySQL username
-    password: 'root',   // MySQL password
-    database: 'itemario' // Name of your database
+    host: 'localhost',  
+    user: 'root',       
+    password: 'root',   
+    database: 'itemario' 
 });
 
-// Create an Express application
 const app = express();
 
-// Use CORS middleware
 app.use(cors());
 
-// Add middleware to parse JSON bodies
 app.use(express.json());
 
-// Define a route to fetch users
 app.get('/api/users', (req, res) => {
-    // Query to retrieve all users from the user table
     const getUsersQuery = 'SELECT * FROM user';
 
-    // Execute the query
     connection.query(getUsersQuery, (err, results) => {
         if (err) {
             console.error('Error executing query: ', err);
             res.status(500).json({ error: 'Error executing query' });
             return;
         }
-        // Send the users data as JSON response
         res.json(results);
     });
 });
@@ -100,24 +92,19 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// Route to fetch all products
 app.get('/api/products', (req, res) => {
-    // Query to retrieve all products from the product table
     const getProductsQuery = 'SELECT * FROM product';
 
-    // Execute the query
     connection.query(getProductsQuery, (err, results) => {
         if (err) {
             console.error('Error executing query: ', err);
             res.status(500).json({ error: 'Error executing query' });
             return;
         }
-        // Send the products data as JSON response
         res.json(results);
     });
 });
 
-// Route to add a new product
 app.post('/api/products', (req, res) => {
     const { name, store, price, date } = req.body;
     const insertProductQuery = 'INSERT INTO product (name, store, price, date) VALUES (?, ?, ?, ?)';
@@ -139,7 +126,6 @@ app.post('/api/products', (req, res) => {
     });
 });
 
-// Route to update a product
 app.put('/api/products/:id', (req, res) => {
     const productId = req.params.id;
     const { name, store, price, date } = req.body;
@@ -155,7 +141,6 @@ app.put('/api/products/:id', (req, res) => {
     });
 });
 
-// Route to delete a product
 app.delete('/api/products/:id', (req, res) => {
     const productId = req.params.id;
     const deleteProductQuery = 'DELETE FROM product WHERE id = ?';
@@ -170,9 +155,6 @@ app.delete('/api/products/:id', (req, res) => {
     });
 });
 
-
-
-// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router'; // Import the Router
-import { AuthService } from '../auth.service'; // Import the AuthService
+import { Router } from '@angular/router'; 
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,23 +16,19 @@ export class LoginComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService // Inject AuthService
+    private authService: AuthService 
   ) {}
 
   onSubmit(): void {
-    // Perform login authentication logic here
-    // Example: You can send a POST request to your backend to authenticate the user
     const credentials = {
       username: this.username,
       password: this.password
     };
 
-    // Example: Send login request to backend
     this.http.post<any>('http://localhost:3000/api/login', credentials).subscribe(
       (response) => {
         console.log(response);
-        // Store the logged-in user information in AuthService
-        this.authService.login(response.user); // Assuming response contains user information
+        this.authService.login(response.user); 
         alert('User logged in successfully!');
         this.router.navigate(['/start']);
       },

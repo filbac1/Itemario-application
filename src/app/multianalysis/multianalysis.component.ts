@@ -56,7 +56,7 @@ export class MultianalysisComponent implements OnInit {
         borderColor: this.getRandomColor(),
         fill: false,
         label: productName,
-        tension: 0  // Ensures that the line is straight
+        tension: 0 
       };
     });
   }

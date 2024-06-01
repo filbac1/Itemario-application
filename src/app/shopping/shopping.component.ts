@@ -81,8 +81,8 @@ export class ShoppingComponent {
   ];
 
   selectedProducts: string[] = [];
-  selectedDate: string = '';  // Default value as empty string
-  bestStore: string = '';     // Default value as empty string
+  selectedDate: string = '';  
+  bestStore: string = '';    
   bestPrice: number = 0; 
 
   constructor(private http: HttpClient, private productService: ProductService, private router: Router) {}
@@ -100,16 +100,12 @@ export class ShoppingComponent {
       return;
     }
   
-    // Convert selectedDate to MySQL format (YYYY-MM-DD)
     const selectedDate = new Date(this.selectedDate);
   
-    // Filter products based on selected products
     const filteredProducts = this.products.filter(product => this.selectedProducts.includes(product.name));
   
-    // Initialize an object to store the best store for each selected product
     this.bestStores = {};
   
-    // Find the best store for each selected product for the selected date and subsequent dates
     let currentDate = new Date(selectedDate);
     while (Object.keys(this.bestStores).length < this.selectedProducts.length && currentDate <= new Date()) {
       const productsForDate = filteredProducts.filter(product => new Date(product.date) >= currentDate);
@@ -118,18 +114,14 @@ export class ShoppingComponent {
           this.bestStores[product.name] = { store: product.store, price: product.price };
         }
       });
-      currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
+      currentDate.setDate(currentDate.getDate() + 1);
     }
     
   }
   
-  // Assuming you have bestStores populated with the data
-  // Assuming you have bestStores populated with the data
-
   generateBestStoresSummary(): string {
     let summary = 'You can do your shopping in following stores on this date (' + this.selectedDate + '):\n\n';
 
-    // Iterate over bestStores object
     Object.keys(this.bestStores).forEach(product => {
       const store = this.bestStores[product].store;
       const price = this.bestStores[product].price.toFixed(2);
@@ -145,43 +137,29 @@ export class ShoppingComponent {
   generateBestStoresMessages(): string[] {
     let messages: string[] = [];
   
-    // Create a map to group products by store
     let storeProductsMap: { [store: string]: string[] } = {};
     let totalPrice: number = 0;
   
-    // Iterate over bestStores object
     Object.keys(this.bestStores).forEach(product => {
       const store = this.bestStores[product].store;
       const price = this.bestStores[product].price.toFixed(2);
   
-      // Add the price to the total
       totalPrice += parseFloat(price);
   
-      // Check if the store already exists in the map, if not, initialize an empty array
       if (!storeProductsMap[store]) {
         storeProductsMap[store] = [];
       }
       
-      // Push the product and price to the respective store's array
       storeProductsMap[store].push(`${product} (${price}€)`);
     });
   
-    // Iterate over the storeProductsMap to construct the messages
     Object.keys(storeProductsMap).forEach(store => {
       const products = storeProductsMap[store].join(', ');
       messages.push(`<span class="store-name">${store}</span>: ${products}`);
     });
   
-    // Add the total price as the last row
     messages.push(`Total Price: ${totalPrice.toFixed(2)}€`);
   
     return messages;
-  }
-  
-  
-  
-  
-
-
-  
+  } 
 }

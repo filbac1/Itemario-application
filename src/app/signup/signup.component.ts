@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router'; // Import the Router
-import { AuthService } from '../auth.service'; // make sure the path is correct
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,27 +18,23 @@ export class SignupComponent {
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   onSubmit(): void {
-    // Validate username length
     if (this.username.length < 4 || this.username.length > 20) {
       this.errorMessage = 'Username must be between 4 and 20 characters.';
       return;
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
       this.errorMessage = 'Invalid email format.';
       return;
     }
 
-    // Validate password length and complexity
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(this.password)) {
       this.errorMessage = 'Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number.';
       return;
     }
 
-    // Validate password match
     if (this.password !== this.repeatPassword) {
       this.errorMessage = 'Passwords do not match.';
       return;
@@ -54,7 +50,6 @@ export class SignupComponent {
     (response) => {
       console.log(response);
       if (response.user) {
-        // Store the user information after successful signup
         this.authService.login(response.user);
       }
       alert('User signed up successfully!');

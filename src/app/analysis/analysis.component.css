@@ -1,4 +1,3 @@
-/* Additional styles for the analysis page */
 #analysis {
     background-color: #f2f2f2;
     padding: 40px 0;
@@ -12,9 +11,8 @@
     margin-bottom: 20px;
   }
   
-  /* Add this CSS to center the chart canvas */
   .chart-canvas {
-    max-width: 800px; /* Set maximum width */
-    margin: 0 auto; /* Center horizontally */
-    display: block; /* Ensure it's a block-level element */
+    max-width: 800px; 
+    margin: 0 auto;
+    display: block; 
   }
