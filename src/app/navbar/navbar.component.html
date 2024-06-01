@@ -12,9 +12,6 @@
         <li class="nav-item" *ngIf="currentUser">
           <a class="nav-link" href="/start">Item</a>
         </li>
-        <li class="nav-item" *ngIf="currentUser && currentUser.role === 'admin'">
-          <a class="nav-link" routerLink="/user">Users</a>
-        </li>
         <li class="nav-item" *ngIf="!currentUser">
           <a class="nav-link" href="/login">Login</a>
         </li>

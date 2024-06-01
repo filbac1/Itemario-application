@@ -46,11 +46,6 @@
         <input type="date" id="endDate" [(ngModel)]="endDate" (input)="applyFilters()">
       </div>
     </div>
-    <div class="row mt-3" *ngIf="selectedNames.length > 0 && storeFilter">
-      <div class="col-md-12 text-center">
-        <button class="btn btn-primary" (click)="analyzeProducts()">Analyze Filtered Products</button>
-      </div>
-    </div>
     <div class="row mt-3" *ngIf="storeFilter">
       <div class="col-md-12 text-center">
         <button class="btn btn-secondary" (click)="analyzeMultipleProducts()">Analyze Multiple Store Products</button>
@@ -59,7 +54,7 @@
     <div class="row mt-3" *ngIf="selectedNames.length === 1">
       <div class="col-md-12 text-center">
         <button class="btn btn-info" (click)="analyzePriceMovement(selectedNames[0])">
-          Analyze Price Movement
+          Analyze Product Price Movement By Store
         </button>
       </div>
     </div>

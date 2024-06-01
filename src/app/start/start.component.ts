@@ -13,8 +13,7 @@ export class StartComponent implements OnInit {
   constructor(private authService: AuthService, private http: HttpClient) { } 
 
   ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
-    console.log("Current user:", this.currentUser); 
+    this.currentUser = this.authService.getCurrentUser(); 
   }
 
 }

@@ -109,16 +109,16 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  analyzeProducts() {
-    this.router.navigate(['/analysis'], { state: { products: this.filteredProducts } });
-  }
-
   analyzeMultipleProducts() {
     this.router.navigate(['/multianalysis'], { state: { products: this.filteredProducts } });
   }
 
   analyzePriceMovement(productName: string) {
     this.router.navigate(['/price-movement'], { state: { products: this.products, selectedProduct: productName } });
+  }
+
+  analyzeProducts() {
+    this.router.navigate(['/analysis'], { state: { products: this.filteredProducts } });
   }
   
   

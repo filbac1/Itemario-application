@@ -38,7 +38,7 @@ export class PriceMovementChartComponent implements OnInit {
         data: storeProducts.map(product => ({ x: dayjs.utc(product.date).toDate(), y: product.price })),
         borderColor: this.getRandomColor(),
         fill: false,
-        lineTension: 0, 
+        lineTension: 0,
         borderWidth: 2, 
         borderCapStyle: 'butt' as CanvasLineCap, 
         borderJoinStyle: 'miter' as CanvasLineJoin 

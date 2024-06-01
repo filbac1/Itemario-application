@@ -27,13 +27,11 @@ export class LoginComponent {
 
     this.http.post<any>('http://localhost:3000/api/login', credentials).subscribe(
       (response) => {
-        console.log(response);
         this.authService.login(response.user); 
         alert('User logged in successfully!');
         this.router.navigate(['/start']);
       },
       (error) => {
-        console.error('Error:', error);
         this.errorMessage = 'Invalid username or password. Please try again.';
       }
     );
